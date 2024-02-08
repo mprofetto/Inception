@@ -1,0 +1,116 @@
+version: "3"
+
+services:
+ nginx:
+  container_name: nginx
+  depends_on:
+   - wordpress
+  build: ./requirements/nginx
+  ports:
+   - 443:443
+  volumes:
+   - wordpress:/var/www/html
+  networks:
+   - inception
+  env_file: .env
+  restart: always
+ 
+ mariadb:
+  container_name: mariadb
+  build: ./requirements/mariadb
+  volumes:
+   - mariadb:/var/lib/mysql
+  networks:
+   - inception
+  env_file: .env
+  restart: unless-stopped
+ 
+ wordpress:
+  container_name: wordpress
+  depends_on:
+   - mariadb
+   - redis
+  build: ./requirements/wordpress
+  volumes:
+   - wordpress:/var/www/html
+  networks:
+   - inception
+  env_file: .env
+  restart: on-failure
+
+ adminer:
+  container_name: adminer
+  build: ./requirements/bonus/adminer
+  depends_on:
+   - mariadb
+  networks:
+   - inception
+  restart: always
+ 
+ cadvisor:
+  container_name: cadvisor
+  build: ./requirements/bonus/cadvisor
+  networks:
+   - inception
+  ports:
+   - 8080:8080
+  volumes:
+   - /:/rootfs:ro
+   - /var/run:/var/run:ro 
+   - /sys:/sys:ro 
+   - /var/lib/docker/:/var/lib/docker:ro
+  restart: always
+ 
+ ftp:
+  container_name: ftp
+  build: ./requirements/bonus/ftp
+  networks:
+   - inception
+  ports:
+   - 21:21
+   - 21100-21110:21100-21110
+  volumes:
+   - wordpress:/var/www/html
+  env_file: .env
+  restart: always
+  
+ redis:
+  container_name: redis
+  build: ./requirements/bonus/redis
+  volumes:
+   - wordpress:/var/www/html
+  networks:
+   - inception
+  ports:
+   - 6379:6379
+  env_file: .env
+  restart: always
+
+ website:
+  container_name: website
+  build: ./requirements/bonus/website/
+  ports:
+   - 3000:3000
+  networks:
+   - inception
+  restart: always
+
+volumes:
+ mariadb:
+  driver: local
+  driver_opts:
+   type: none
+   o: bind
+   device: /home/mprofett/data/mariadb
+ wordpress:
+  driver: local
+  driver_opts:
+   type: none
+   o: bind
+   device: /home/mprofett/data/wordpress
+
+networks:
+ inception:
+  driver: bridge
+
+

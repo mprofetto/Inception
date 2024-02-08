@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en" class="no-js">
+<head>
+    <title>Inception static website</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+	<header>
+		<div id="logo"><img src="/19_logo_48px.png">Inception Project</div>
+		<nav>
+			<ul>
+				<li><a href="/">Home</a>
+				<li><a href="nginx.html">Nginx</a>
+				<li><a href="wordpress.html">Wordpress</a>
+				<li><a href="mariadb.html">Mariadb</a>
+			</ul>
+		</nav>
+	</header>
+	<section>
+		<strong>This is the presentation page of the static website of the inception project of 19 school.</strong>
+	</section>
+	<section id="pageContent">
+		<main role="main">
+			<article>
+				<h2>What is Inception About</h2>
+				<p>This project aims to broaden your knowledge of system administration by using Docker. You will virtualize several Docker images, creating them in your new personal virtual machine.</p>
+			</article>
+			<article>
+				<h2>What are we building here ?</h2>
+				<p>This build consist in building a full webserver infrastructure containing a webserver (NGINX), a wordpress website and his own php CGI manager and a database used by the wordpress website.</p>
+			</article>
+			<article>
+				<h2>But what is really a webserver?</h2>
+				<p>A webserver is a program running permanently and listening to request on one or several ports. Once the webserver receive a request on the listened port, the webserver decide if the request can be answered by sending an html document stored or if the request needs to be processed by a particular service.</p>
+			</article>
+			<article>
+				<h2>Ok but how the webserver communicate with thoses particulars services?</h2>
+				<p>The webserver use whats called a FastCGI (the modern version of a CGI). CGI stands for Common Gateway Interface. When the request has to be send through a pipe or a socket depending on the fact that the service wich will interpret the request is on the same machine as the webserv or on a different one.</p>
+			</article>
+			<article>
+				<h2>And thats it?</h2>
+				<p>Yeah thats it. Once the request has been processed and a response is given, the webserver send back the response to the client that send the request at the beginning (like an user navigator somewhere on the internet).</p>
+			</article>
+		</main>
+	</section>
+	<footer>
+		<p>&copy; This page was realised with the help of the html5 template website | <a href="https://html5-templates.com/" target="_blank" rel="nofollow">HTML5 Templates</a></p>
+		<address>
+			Contact: mprofett@student.s19.be
+		</address>
+	</footer>
+
+
+</body>
+
+</html>
